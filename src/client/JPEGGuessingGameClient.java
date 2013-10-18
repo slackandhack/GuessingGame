@@ -35,7 +35,7 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 					int[] possibleValues = {1,2,4,6,7,9,10};
 					Random rand = new Random();
 					int randIndex = rand.nextInt(7); 
-					secretValue=possibleValues[randIndex];
+					secretValue = possibleValues[randIndex];
 				}else{
 					// send first guess
 					lastGuess=5;
