@@ -4,6 +4,8 @@ import static common.Topics.GUESS;
 import static common.Topics.HINT;
 import static common.Topics.JOIN;
 
+import java.util.Random;
+
 import common.Observer;
 
 public class JPEGGuessingGameClient extends GuessingGameClient {
@@ -30,7 +32,10 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 				boolean isHinting=(Boolean)response;
 				if(isHinting){
 					// set new secret value for this round
-					secretValue=3;
+					int[] possibleValues = {1,2,4,6,7,9,10};
+					Random rand = new Random();
+					int randIndex = rand.nextInt(6) + 1; 
+					secretValue=possibleValues[randIndex];
 				}else{
 					// send first guess
 					lastGuess=5;
@@ -64,11 +69,11 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 				else if(hint >0){
 					lastGuess = (10+lastGuess)/2;
 				}
-                try{
-                        c.publish(GUESS, lastGuess);
-                }catch(Exception e){
-                        
-                }
+				try{
+					c.publish(GUESS, lastGuess);
+				}catch(Exception e){
+
+				}                
 			}
 		});
 		try{
