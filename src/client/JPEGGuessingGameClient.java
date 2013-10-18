@@ -9,7 +9,7 @@ import common.Observer;
 public class JPEGGuessingGameClient extends GuessingGameClient {
 	JPEGGuessingGameClient c;
 	Integer secretValue=3;
-	int lastGuess=1;
+	int lastGuess=5;
 	public static void main(String[] args) {
 		try{
 			new JPEGGuessingGameClient();
@@ -33,7 +33,7 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 					secretValue=3;
 				}else{
 					// send first guess
-					lastGuess=1;
+					lastGuess=5;
 					try{
 					c.publish(GUESS, lastGuess);
 					}catch(Exception e){
@@ -57,25 +57,25 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 		c.subscribe(HINT, new Observer(){
 			@Override
 			public void onUpdate(Object response) {
-				int hint=(Integer)response;
-				
-				if (hint > 0){ //if the secretValue is smaller (guess was too high)
-					lastGuess = hint/2;
+                int hint=(Integer)response;
+                if(hint <0){
+					lastGuess = lastGuess/2;					
 				}
-				else if (hint < 0) //(guess was too low){
-					lastGuess = hint*2;
+				else if(hint >0){
+					lastGuess = (10+lastGuess)/2;
 				}
-				try{
-					c.publish(GUESS, lastGuess);
-				}catch(Exception e){
-					
-				}
+                try{
+                        c.publish(GUESS, lastGuess);
+                }catch(Exception e){
+                        
+                }
 			}
 		});
 		try{
 			c.openConnection(ip,port,teamName);
 		}catch(Exception e){
-			
+        
 		}
 	}
 }
+
