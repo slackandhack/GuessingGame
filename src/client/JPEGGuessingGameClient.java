@@ -65,10 +65,10 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 				int hint=(Integer)response;
 				
 				if (hint > 0){ //if the secretValue is smaller (guess was too high)
-					lastGuess = hint/2;
+					lastGuess = lastGuess/2;
 				}
 				else if (hint < 0) //(guess was too low){
-					lastGuess = hint*2;
+					lastGuess = lastGuess*2;
 				}
 				try{
 					c.publish(GUESS, lastGuess);
