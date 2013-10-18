@@ -96,7 +96,7 @@ class GuessingGameServer {
 		}
 		public void onUpdate(Object value){
 			super.onUpdate(value);
-			if(count>=3) return;
+			if(count>3) return;
 			try{
 				t2.publish(topic,value);
 			}catch(Exception e){
@@ -106,7 +106,7 @@ class GuessingGameServer {
 	}
 	private static class CountingObserver implements Observer{
 		public int count=0;
-		public int lastValue=0;
+		public int lastValue=-1;
 		public void onUpdate(Object value){
 			count++;
 			this.lastValue=(Integer)value;
@@ -180,9 +180,6 @@ class GuessingGameServer {
 					t1.publish(JOIN,GUESSER);
 					t2.publish(JOIN,HINTER);
 				
-					synchronized(serverHintListener){
-						serverHintListener.wait();
-					}
 					while(serverHintListener.lastValue!=0&&serverHintListener.count<3){
 						Thread.sleep(100);
 					}

@@ -52,6 +52,7 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 			@Override
 			public void onUpdate(Object response) {
 				try{
+					System.out.println("Hint: "+secretValue.compareTo((Integer)response));
 					c.publish(HINT, secretValue.compareTo((Integer)response));
 				}catch(Exception e){
 					
@@ -70,6 +71,7 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 					lastGuess = (10+lastGuess)/2;
 				}
 				try{
+					System.out.println("Guess: "+lastGuess);
 					c.publish(GUESS, lastGuess);
 				}catch(Exception e){
 
