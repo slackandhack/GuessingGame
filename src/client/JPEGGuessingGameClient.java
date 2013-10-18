@@ -6,21 +6,21 @@ import static common.Topics.JOIN;
 
 import common.Observer;
 
-public class HaysGuessingGameClient extends GuessingGameClient {
-	HaysGuessingGameClient c;
+public class JPEGGuessingGameClient extends GuessingGameClient {
+	JPEGGuessingGameClient c;
 	Integer secretValue=3;
 	int lastGuess=1;
 	public static void main(String[] args) {
 		try{
-			new HaysGuessingGameClient();
+			new JPEGGuessingGameClient();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	public HaysGuessingGameClient(){
+	public JPEGGuessingGameClient(){
 		String ip="localhost";
 		int port=12345;
-		String teamName="Hays";
+		String teamName="JPEG";
 		// subscribe observers
 		c=this;
 		// new game: figure out role
@@ -58,7 +58,13 @@ public class HaysGuessingGameClient extends GuessingGameClient {
 			@Override
 			public void onUpdate(Object response) {
 				int hint=(Integer)response;
-				lastGuess+=hint;
+				
+				if (hint > 0){ //if the secretValue is smaller (guess was too high)
+					lastGuess = hint/2;
+				}
+				else if (hint < 0) //(guess was too low){
+					lastGuess = hint*2;
+				}
 				try{
 					c.publish(GUESS, lastGuess);
 				}catch(Exception e){
