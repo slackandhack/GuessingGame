@@ -47,6 +47,7 @@ public class HaysGuessingGameClient extends GuessingGameClient {
 			@Override
 			public void onUpdate(Object response) {
 				try{
+					System.out.println("Hint: "+secretValue.compareTo((Integer)response));
 					c.publish(HINT, secretValue.compareTo((Integer)response));
 				}catch(Exception e){
 					
@@ -60,6 +61,7 @@ public class HaysGuessingGameClient extends GuessingGameClient {
 				int hint=(Integer)response;
 				lastGuess+=hint;
 				try{
+					System.out.println("Guess: "+lastGuess);
 					c.publish(GUESS, lastGuess);
 				}catch(Exception e){
 					
