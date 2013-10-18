@@ -34,7 +34,7 @@ public class JPEGGuessingGameClient extends GuessingGameClient {
 					// set new secret value for this round
 					int[] possibleValues = {1,2,4,6,7,9,10};
 					Random rand = new Random();
-					int randIndex = rand.nextInt(6) + 1; 
+					int randIndex = rand.nextInt(7); 
 					secretValue=possibleValues[randIndex];
 				}else{
 					// send first guess
